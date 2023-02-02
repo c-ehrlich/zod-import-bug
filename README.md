@@ -1,28 +1,17 @@
-# Create T3 App
+# zod schema import / tRPC bug
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+When importing zod schema on the client that are exported from the same file as a tRPC router in the backend, a runtime error occurs:
 
-## What's next? How do I make an app with this?
+```
+Unhandled Runtime Error
+Error: You're trying to use @trpc/server in a non-server environment. This is not supported by default.
+```
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+<img width="1460" alt="image" src="https://user-images.githubusercontent.com/8353666/216389364-7f69d2d9-6d62-4a24-a9f4-87fab817935d.png">
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+To reproduce:
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
-
-## Learn More
-
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+1. install packages: `pnpm i`
+2. start dev server: `pnpm dev`
+3. visit a working page, where the zod schema is exported from its own file: `http://localhost:3000/working`
+4. visit a broken page, where the zod schema is exported from the same file as a tRPC router: `http://localhost:3000/broken`
